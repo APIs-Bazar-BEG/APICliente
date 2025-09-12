@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// Rutas del carrito
+app.use("/api/v1/carrito", carritoRouter);
+
 // Importar las rutas de categorías
 const categoriasRouter = require("./routes/categorias");
 
