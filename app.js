@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// Importar las rutas de categorías
+const categoriasRouter = require("./routes/categorias");
+
 // Importar el módulo de conexión a la base de datos
 const db = require("./config/db");
 
