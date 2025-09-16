@@ -1,21 +1,15 @@
-// routes/productos.js
 const express = require("express");
 const router = express.Router();
 const productoController = require("../controllers/productoController");
-const {
-  validarId,
-  validarCategoriaId,
-} = require("../middlewares/validaciones");
+const { validarId } = require("../middlewares/validaciones");
 
-// Endpoint para obtener todos los productos
-router.get("/", productoController.listarProductos);
-
-// Filtrar por categoría
-router.get(
-  "/categoria",
-  validarCategoriaId,
-  productoController.listarPorCategoria
-);
+router.get("/", async (req, res, next) => {
+  const { categoria_id } = req.query;
+  if (categoria_id) {
+    return productoController.listarPorCategoria(req, res, next);
+  }
+  return productoController.listarProductos(req, res, next);
+});
 
 // Producto por ID
 router.get("/:id", validarId, productoController.obtenerProductoPorId);

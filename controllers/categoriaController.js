@@ -6,7 +6,7 @@ const categoriaController = {
       const categorias = await Categoria.getAll();
       res.status(200).json(categorias);
     } catch (error) {
-      console.error(error);
+      console.error("Error en listarCategorias:", error.message);
       res.status(500).json({ error: "Error al obtener las categorías" });
     }
   },
@@ -19,15 +19,15 @@ const categoriaController = {
       if (!productos || productos.length === 0) {
         return res
           .status(404)
-          .json({ error: "No se encontraron productos para esta categoría" });
+          .json({ error: "No se encontraron productos en esta categoría" });
       }
 
       res.status(200).json(productos);
     } catch (error) {
-      console.error(error);
+      console.error("Error en productosPorCategoria:", error.message);
       res
         .status(500)
-        .json({ error: "Error al obtener los productos por categoría" });
+        .json({ error: "Error al obtener productos por categoría" });
     }
   },
 };
