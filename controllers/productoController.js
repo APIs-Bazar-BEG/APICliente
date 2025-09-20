@@ -6,8 +6,12 @@ const productoController = {
       const productos = await Producto.getAll();
       res.json(productos);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error al obtener los productos" });
+      console.error("Error en listarProductos:", error); // consola
+      res.status(500).json({
+        error: "Error al obtener los productos",
+        detalles: error.message, // esto se verá en Postman
+        code: error.code || null,
+      });
     }
   },
 
