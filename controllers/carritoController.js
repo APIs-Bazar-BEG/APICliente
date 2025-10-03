@@ -1,4 +1,6 @@
 const Carrito = require("../models/Carrito");
+const axios = require("axios");
+const ADMIN_API = process.env.ADMIN_API;
 
 const carritoController = {
   agregarProducto: async (req, res) => {

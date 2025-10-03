@@ -1,30 +1,25 @@
 const Categoria = require("../models/Categoria");
+const axios = require("axios");
+const ADMIN_API = process.env.ADMIN_API;
 
 const categoriaController = {
   listarCategorias: async (req, res) => {
     try {
-      const categorias = await Categoria.getAll();
-      res.status(200).json(categorias);
+      const { data } = await axios.get(`${ADMIN_API}/categorias`);
+      res.json(data);
     } catch (error) {
-      console.error("Error en listarCategorias:", error.message);
-      res.status(500).json({ error: "Error al obtener las categorías" });
+      res.status(500).json({ error: "Error al obtener categorías" });
     }
   },
 
   productosPorCategoria: async (req, res) => {
     try {
       const { id } = req.params;
-      const productos = await Categoria.getProductosPorCategoria(id);
-
-      if (!productos || productos.length === 0) {
-        return res
-          .status(404)
-          .json({ error: "No se encontraron productos en esta categoría" });
-      }
-
-      res.status(200).json(productos);
+      const { data } = await axios.get(
+        `${ADMIN_API}/categorias/${id}/productos`
+      );
+      res.json(data);
     } catch (error) {
-      console.error("Error en productosPorCategoria:", error.message);
       res
         .status(500)
         .json({ error: "Error al obtener productos por categoría" });
